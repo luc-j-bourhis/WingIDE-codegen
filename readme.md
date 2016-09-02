@@ -23,7 +23,7 @@ where `|` mark the position of the cursor at that point. Then we very often have
 
 This is a bad violation of DRY. We cannot change Python but we can automate it: with the cursor at the position marked in the first code snippet, thanks to Wing semantic analysis, we can learn we are in the method `__init__` of class `Something`, and then get the arguments of `Something.__init__`. Finally we can automatically generate the second code snippet. Here is it in action:
 
-<img src="animated.gif" alt="" id="animated" onmouseover="document.getElementById('animated').src='animated.gif'">
+![](animated.gif)
 
 This boiler plate is more frequently encountered in method `__init__` but our new command works in any method. In any other scope than the method of a class, the command does not do anything.
 
