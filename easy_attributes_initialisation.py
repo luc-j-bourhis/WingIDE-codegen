@@ -22,9 +22,12 @@ def generate_attribute_initialisation():
   init_def = analysis.GetSymbolInfo(klass, method)
   if not init_def or not init_def[0].isCallable:
     return
+  scope_content = analysis.GetScopeContents('{}:'.format(klass))
+  existing_attribs = [symbol for symbol, info in scope_content.iteritems()
+                      if 'attrib' in info]
   code_lines = ['self.{} = {}'.format(arg, arg) 
                 for arg in init_def[0].args[1:] 
-                if not arg.startswith('*')]
+                if not arg.startswith('*') and not arg in existing_attribs]
   if not code_lines:
     return
   start, end = editor.GetSelection()
