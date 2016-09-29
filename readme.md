@@ -1,8 +1,14 @@
-# Automated writing of attribute initialisations from method arguments
+# A collection of code generation tools for WingIDE
 
-## Description
+## Introduction
 
-This is a custom command for [WingIDE](http://wingware.com), a powerful Python IDE with advanced scripting capabilities. What makes this command possible is the syntactic analysis of Python code provided by WingIDE and, as importantly, the fact that its scripting API provides an easy access to it.
+This repository features custom commands for [WingIDE](http://wingware.com), a powerful Python IDE with advanced scripting capabilities. What makes this command possible is the syntactic analysis of Python code provided by WingIDE and, as importantly, the fact that its scripting API provides an easy access to it.
+
+## Installation
+
+As any other WingIDE extension, simply copy the Python source (i.e.  `codegen.py` here) in `~/.wingide6/scripts` on Linux and MacOS X. On Windows, the path is `c:\Users\${username}\AppData\Roaming\Wing IDE 6\scripts`. You should replace 6 by 5 if you are using Wing IDE version 5 instead of the version 6.
+
+## Generate attribute initialisation
 
 The problem we want to solve is a frequent boiler plate: imagine we have type the `def ...`:
 
@@ -27,6 +33,5 @@ This is a bad violation of DRY. We cannot change Python but we can automate it: 
 
 This boiler plate is more frequently encountered in method `__init__` but our new command works in any method. In any other scope than the method of a class, the command does not do anything.
 
-## Installation
+The name of the command is: `generate-attribute-initialisation`.
 
-As any other WingIDE extension, simply copy the Python source (i.e.  `easy_attributes_initialisation.py` here) in `~/.wingide6/scripts` on Linux and MacOS X. On Windows, the path is `c:\Users\${username}\AppData\Roaming\Wing IDE 6\scripts`. You should replace 6 by 5 if you are using Wing IDE version 5 instead of the version 6.
