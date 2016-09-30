@@ -1,10 +1,14 @@
 import wingapi
 
-def _there_is_an_active_editor():
-  app = wingapi.gApplication
-  editor = app.GetActiveEditor()
-  return editor is not None
+def active_editor_only(func):
+  def available():
+    app = wingapi.gApplication
+    editor = app.GetActiveEditor()
+    return editor is not None
+  func.available = available
+  return func
 
+@active_editor_only
 def generate_attribute_initialisation():
   app = wingapi.gApplication
   editor = app.GetActiveEditor()
@@ -45,5 +49,3 @@ def generate_attribute_initialisation():
   doc.InsertChars(pos, txt=code)
   pos += len(code)
   editor.SetSelection(pos, pos)
-
-generate_attribute_initialisation.available = _there_is_an_active_editor
