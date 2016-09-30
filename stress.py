@@ -16,6 +16,12 @@ class Something(object):
 
   def some_other_method(self, fancy_arg, crazy_arg):
     self.mad_arg = mad_arg # existing code: select and execute command
+    
+  def need_super_call(self, arg, another_arg, yet_another_arg, *args, **kwds):
+    super(Something, self).need_super_call(arg, another_arg, yet_another_arg,
+                                           *args, **kwds)
+
+
 
 def some_func(arg_one, arg_two):
   """ Some function """

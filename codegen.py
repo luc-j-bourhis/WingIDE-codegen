@@ -59,3 +59,12 @@ def generate_attribute_initialisation(doc, editor, analysis,
                 for arg in method_def[0].args[1:] 
                 if not arg.startswith('*') and not arg in existing_attribs]
   return code_lines
+
+@active_editor_only
+@__generate_code
+def generate_super_call(doc, editor, analysis, 
+                        klass, method, method_def):
+  code_lines = ["super({}, {}).{}({})"
+                .format(klass, method_def[0].args[0], method, 
+                        ', '.join(method_def[0].args[1:]))]
+  return code_lines
