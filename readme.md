@@ -35,3 +35,23 @@ This boiler plate is more frequently encountered in method `__init__` but our ne
 
 The name of the command is: `generate-attribute-initialisation`.
 
+## Generate `super` call
+
+Imagine we have the method
+
+```Python
+class Something(object):
+
+    def some_func(self, arg, another_arg, *args, **kwds):
+        |
+```
+
+with again `|` marking the position of the cursor. We want now to make a `super` call: a lot of it is a repetion of already typed material:
+
+```Python
+        super(Something, self).some_func(arg, another_arg, *args, **kwds)
+```
+
+The command `generate_super_call` generate this code automatically, using again Wing syntactic analysis engine to find the class name, the function name and the arguments.
+
+
