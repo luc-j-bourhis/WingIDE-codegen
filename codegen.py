@@ -53,18 +53,25 @@ def __generate_code(func):
 def generate_attribute_initialisation(doc, editor, analysis, 
                                       klass, method, method_def):
   scope_content = analysis.GetScopeContents('{}:'.format(klass))
-  existing_attribs = [symbol for symbol, info in scope_content.iteritems()
+  existing_attribs = [symbol for symbol, info in scope_content.items()
                       if 'attrib' in info]
+  args = []
+  for arg in method_def[0].args[1:]:
+    if arg.startswith('*') or arg in existing_attribs:
+      continue
+    i = arg.find(':')
+    if i >=0:
+      arg = arg[:i]
+    args.append(arg)
   code_lines = ['{}.{} = {}'.format(method_def[0].args[0], arg, arg) 
-                for arg in method_def[0].args[1:] 
-                if not arg.startswith('*') and not arg in existing_attribs]
+                for arg in args]
   return code_lines
 
 @active_editor_only
 @__generate_code
 def generate_super_call(doc, editor, analysis, 
                         klass, method, method_def):
-  code_lines = ["super({}, {}).{}({})"
-                .format(klass, method_def[0].args[0], method, 
+  code_lines = ["super().{}({})"
+                .format(method, 
                         ', '.join(method_def[0].args[1:]))]
   return code_lines
